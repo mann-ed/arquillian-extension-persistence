@@ -1,59 +1,61 @@
 package org.arquillian.ape.rdbms.dbunit.junit;
 
+import static org.assertj.db.api.Assertions.assertThat;
+
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.sql.Driver;
 import java.sql.SQLException;
-import org.arquillian.ape.junit.rule.ArquillianPersistenceRule;
+
+import org.arquillian.ape.junit.extension.ArquillianPersistenceExtension;
 import org.arquillian.ape.rdbms.core.RdbmsPopulator;
 import org.arquillian.ape.rdbms.dbunit.DbUnit;
 import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
-import org.h2.Driver;
 import org.h2.tools.RunScript;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.assertj.db.api.Assertions.assertThat;
-
+@ExtendWith(ArquillianPersistenceExtension.class)
 public class PersonTest {
-
-    @Rule
-    public ArquillianPersistenceRule arquillianPersistenceRule = new ArquillianPersistenceRule();
 
     @DbUnit
     @ArquillianResource
     RdbmsPopulator rdbmsPopulator;
 
-    @BeforeClass
-    public static void createSchema() throws SQLException {
+    @BeforeAll
+    public static void createSchema() throws SQLException, NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException {
         // H2 tool for creating schema
 
         RunScript.execute("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
-            "sa", "", "src/test/resources/schema.sql", Charset.forName("UTF-8"), false);
+                "sa", "", "src/test/resources/schema.sql", Charset.forName("UTF-8"), false);
     }
 
     @Test
-    public void should_find_all_heroes() {
-        rdbmsPopulator.forUri(URI.create("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"))
-            .withDriver(Driver.class)
-            .withUsername("sa")
-            .withPassword("")
-            .usingDataSet("heroes.yml")
-            .execute();
+    void should_find_all_heroes() {
 
-        Table table = new Table(new Source("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "sa", ""), "person");
+        rdbmsPopulator.forUri(URI.create("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"))
+                .withDriver(Driver.class)
+                .withUsername("sa")
+                .withPassword("")
+                .usingDataSet("heroes.yml")
+                .execute();
+
+        final Table table = new Table(new Source("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "sa", ""), "person");
         assertThat(table).column("name")
-            .value().isEqualTo("Clark")
-            .value().isEqualTo("Lex");
+                .value().isEqualTo("Clark")
+                .value().isEqualTo("Lex");
 
         rdbmsPopulator.forUri(URI.create("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"))
-            .withDriver(Driver.class)
-            .withUsername("sa")
-            .withPassword("")
-            .usingDataSet("heroes.yml")
-            .clean();
+                .withDriver(Driver.class)
+                .withUsername("sa")
+                .withPassword("")
+                .usingDataSet("heroes.yml")
+                .clean();
+
     }
 
 }

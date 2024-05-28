@@ -17,43 +17,43 @@
  */
 package org.arquillian.ape.rdbms.core.dbunit.dataset.xml;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DtdResolverTest {
+import org.junit.jupiter.api.Test;
+
+class DtdResolverTest {
 
     @Test
-    public void should_resolve_dtd_from_xml_file() throws Exception {
+    void should_resolve_dtd_from_xml_file() throws Exception {
         // given
-        DtdResolver dtdResolver = new DtdResolver();
+        final DtdResolver dtdResolver = new DtdResolver();
 
         // when
-        String dtdFile = dtdResolver.resolveDtdLocation("datasets/xml/users-with-dtd.xml");
+        final String dtdFile = dtdResolver.resolveDtdLocation("datasets/xml/users-with-dtd.xml");
 
         // then
         assertThat(dtdFile).isEqualTo("users.dtd");
     }
 
     @Test
-    public void should_resolve_dtd_full_path_from_xml_file() throws Exception {
+    void should_resolve_dtd_full_path_from_xml_file() throws Exception {
         // given
-        DtdResolver dtdResolver = new DtdResolver();
+        final DtdResolver dtdResolver = new DtdResolver();
 
         // when
-        String dtdFile = dtdResolver.resolveDtdLocationFullPath("datasets/xml/users-with-dtd.xml");
+        final String dtdFile = dtdResolver.resolveDtdLocationFullPath("datasets/xml/users-with-dtd.xml");
 
         // then
         assertThat(dtdFile).isEqualTo("datasets/xml/users.dtd");
     }
 
     @Test
-    public void should_return_null_when_dtd_not_specified() throws Exception {
+    void should_return_null_when_dtd_not_specified() throws Exception {
         // given
-        DtdResolver dtdResolver = new DtdResolver();
+        final DtdResolver dtdResolver = new DtdResolver();
 
         // when
-        String dtdFile = dtdResolver.resolveDtdLocation("datasets/xml/users-without-dtd.xml");
+        final String dtdFile = dtdResolver.resolveDtdLocation("datasets/xml/users-without-dtd.xml");
 
         // then
         assertThat(dtdFile).isNull();

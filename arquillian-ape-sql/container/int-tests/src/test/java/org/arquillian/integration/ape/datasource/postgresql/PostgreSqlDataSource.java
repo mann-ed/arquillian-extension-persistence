@@ -18,8 +18,9 @@
 package org.arquillian.integration.ape.datasource.postgresql;
 
 import javax.annotation.sql.DataSourceDefinition;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+
+import jakarta.ejb.Singleton;
+import jakarta.ejb.Startup;
 
 @DataSourceDefinition(name = "java:app/datasources/postgresql_ds",
     className = "org.postgresql.ds.PGSimpleDataSource",

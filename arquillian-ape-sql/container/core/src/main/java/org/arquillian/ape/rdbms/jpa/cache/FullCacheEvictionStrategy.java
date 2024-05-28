@@ -17,8 +17,8 @@
  */
 package org.arquillian.ape.rdbms.jpa.cache;
 
-import javax.persistence.Cache;
-import javax.persistence.EntityManager;
+import jakarta.persistence.Cache;
+import jakarta.persistence.EntityManager;
 import org.arquillian.ape.rdbms.JpaCacheEviction;
 import org.arquillian.ape.rdbms.JpaCacheEvictionStrategy;
 
@@ -31,7 +31,7 @@ import org.arquillian.ape.rdbms.JpaCacheEvictionStrategy;
 public class FullCacheEvictionStrategy implements JpaCacheEvictionStrategy {
 
     /**
-     * @see JpaCacheEvictionStrategy#evictCache(javax.persistence.EntityManagerFactory)
+     * @see JpaCacheEvictionStrategy#evictCache(jakarta.persistence.EntityManagerFactory)
      */
     @Override
     public final void evictCache(EntityManager em) {

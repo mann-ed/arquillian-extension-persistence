@@ -1,38 +1,35 @@
 package org.arquillian.ape.nosql.redis;
 
-import java.util.Map;
-import org.arquillian.ape.api.Server;
-import org.arquillian.ape.api.UsingDataSet;
-import org.arquillian.ape.junit.rule.DeclarativeArquillianPersistenceRule;
-import org.arquillian.cube.docker.junit.rule.ContainerDslRule;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import redis.clients.jedis.Jedis;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Map;
+
+import org.arquillian.ape.api.Server;
+import org.arquillian.ape.api.UsingDataSet;
+import org.arquillian.ape.junit.extension.DeclarativeArquillianPersistenceExtension;
+import org.arquillian.cube.docker.junit5.ContainerDsl;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 @Server(host = "${arq.cube.docker.redis_3_2_6.ip}", port = "${arq.cube.docker.redis_3_2_6.port.6379:6379}")
+@ExtendWith(DeclarativeArquillianPersistenceExtension.class)
+@Disabled("arquillian.cube needs to update to jakarta")
 public class RedisDeclarativeRuleTest {
 
-    @ClassRule
-    public static ContainerDslRule redis = new ContainerDslRule("redis:3.2.6")
-        .withPortBinding(6379);
-
-    @Rule
-    public DeclarativeArquillianPersistenceRule declarativeArquillianPersistenceRule = new DeclarativeArquillianPersistenceRule();
+    public static ContainerDsl redis = new ContainerDsl("redis:3.2.6")
+            .withPortBinding(6379);
 
     @Test
     @UsingDataSet("books.json")
-    public void should_populate_redis() {
+    void should_populate_redis() {
 
-        final BookService bookService = new BookService();
+        final BookService         bookService           = new BookService();
         final Map<String, String> fieldsOfTheHobbitBook = bookService.findBookByTitle("The Hobbit");
 
         assertThat(fieldsOfTheHobbitBook)
-            .containsEntry("title", "The Hobbit")
-            .containsEntry("numberOfPages", "293");
+                .containsEntry("title", "The Hobbit")
+                .containsEntry("numberOfPages", "293");
     }
-
 
 }

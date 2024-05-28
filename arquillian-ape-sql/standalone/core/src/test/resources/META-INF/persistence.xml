@@ -5,10 +5,10 @@
     <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-      <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" />
-      <property name="javax.persistence.jdbc.user" value="sa" />
-      <property name="javax.persistence.jdbc.password" value="sa" />
+      <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" />
+      <property name="jakarta.persistence.jdbc.user" value="sa" />
+      <property name="jakarta.persistence.jdbc.password" value="sa" />
     </properties>
   </persistence-unit>
 </persistence>

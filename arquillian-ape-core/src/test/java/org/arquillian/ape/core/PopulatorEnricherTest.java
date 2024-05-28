@@ -1,23 +1,24 @@
 package org.arquillian.ape.core;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import java.lang.annotation.Annotation;
 import java.util.Collections;
+
 import org.arquillian.ape.spi.Populator;
 import org.arquillian.ape.spi.PopulatorService;
 import org.jboss.arquillian.core.api.Injector;
 import org.jboss.arquillian.core.spi.ServiceLoader;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-
-@RunWith(MockitoJUnitRunner.class)
-public class PopulatorEnricherTest {
+@ExtendWith(MockitoExtension.class)
+class PopulatorEnricherTest {
 
     @Mock
     ServiceLoader serviceLoader;
@@ -25,16 +26,16 @@ public class PopulatorEnricherTest {
     @Mock
     Injector injector;
 
-    @Before
-    public void setupMocks() {
-        PopulatorService populatorService = new TestPopulatorService();
+    @BeforeEach
+    void setupMocks() {
+        final PopulatorService populatorService = new TestPopulatorService();
         when(injector.inject(any())).thenAnswer(element -> element.getArgument(0));
         when(serviceLoader.all(PopulatorService.class)).thenReturn(Collections.singletonList(populatorService));
     }
 
     @Test
-    public void should_create_populator_with_configured_annotation() throws NoSuchFieldException {
-        MyPopulatorEnricher populatorEnricher = new MyPopulatorEnricher();
+    void should_create_populator_with_configured_annotation() throws NoSuchFieldException {
+        final MyPopulatorEnricher populatorEnricher = new MyPopulatorEnricher();
         populatorEnricher.serviceLoaderInstance = () -> serviceLoader;
         populatorEnricher.injectorInstance = () -> injector;
 
@@ -44,7 +45,7 @@ public class PopulatorEnricherTest {
         assertThat(((Populator) populator).getPopulatorService()).isInstanceOf(TestPopulatorService.class);
     }
 
-    public static class TestPopulatorService implements PopulatorService<MyBackend> {
+    static class TestPopulatorService implements PopulatorService<MyBackend> {
 
         @Override
         public Class<MyBackend> getPopulatorAnnotation() {
@@ -52,5 +53,3 @@ public class PopulatorEnricherTest {
         }
     }
 }
-
-

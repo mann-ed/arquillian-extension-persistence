@@ -17,11 +17,12 @@
  */
 package org.arquillian.integration.ape.example;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 import org.arquillian.ape.api.UsingDataSet;
 import org.arquillian.ape.rdbms.ApplyScriptBefore;
 import org.arquillian.ape.rdbms.CleanupUsingScript;
@@ -29,9 +30,10 @@ import org.arquillian.ape.rdbms.ShouldMatchDataSet;
 import org.arquillian.integration.ape.util.Query;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 /**
  * Defines tests to perform with Persistence Extension but leaves deployment declaration as

@@ -18,8 +18,8 @@
 package org.jboss.arquillian.integration.persistence.jpa.cache;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceUnit;
 import org.arquillian.persistence.JpaCacheEviction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author <a href="mailto:thradec@gmail.com">Tomas Hradec</a>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 @JpaCacheEviction(entityManager = "jpacacheeviction")
 public class JpaCacheEvictionMultiplePersistenceUnitsTest {
 

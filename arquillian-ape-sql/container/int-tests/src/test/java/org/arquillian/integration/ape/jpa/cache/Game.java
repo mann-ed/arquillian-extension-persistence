@@ -18,9 +18,10 @@
 package org.arquillian.integration.ape.jpa.cache;
 
 import java.io.Serializable;
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import jakarta.persistence.Cacheable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 /**
  * @author <a href="mailto:thradec@gmail.com">Tomas Hradec</a>

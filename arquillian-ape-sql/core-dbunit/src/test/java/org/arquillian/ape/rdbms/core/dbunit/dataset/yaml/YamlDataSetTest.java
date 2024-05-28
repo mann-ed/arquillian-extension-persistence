@@ -18,80 +18,81 @@
 package org.arquillian.ape.rdbms.core.dbunit.dataset.yaml;
 
 import java.io.InputStream;
+
 import org.arquillian.ape.rdbms.core.testutils.DataSetAssert;
 import org.arquillian.ape.rdbms.core.testutils.FileLoader;
 import org.arquillian.ape.rdbms.core.testutils.TableAssert;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
-public class YamlDataSetTest {
+class YamlDataSetTest {
 
     InputStream input;
 
-    @After
+    @AfterEach
     public void closeStream() {
         FileLoader.close(input);
     }
 
     @Test
-    public void should_load_table_from_yaml_file() throws Exception {
+    void should_load_table_from_yaml_file() throws Exception {
         // given
         input = FileLoader.load("one-table.yml");
 
         // when
-        YamlDataSet yamlDataSet = new YamlDataSet(input);
+        final YamlDataSet yamlDataSet = new YamlDataSet(input);
 
         // then
         DataSetAssert.assertThat(yamlDataSet).hasTables("useraccount");
     }
 
     @Test
-    public void should_load_all_columns_for_table_from_yaml_file() throws Exception {
+    void should_load_all_columns_for_table_from_yaml_file() throws Exception {
         // given
         input = FileLoader.load("one-table.yml");
 
         // when
-        YamlDataSet yamlDataSet = new YamlDataSet(input);
+        final YamlDataSet yamlDataSet = new YamlDataSet(input);
 
         // then
         TableAssert.assertThat(yamlDataSet.getTable("useraccount"))
-            .hasColumns("id", "firstname", "lastname", "username", "password", "email");
+                .hasColumns("id", "firstname", "lastname", "username", "password", "email");
     }
 
     @Test
-    public void should_load_all_rows_for_table_from_yaml_file() throws Exception {
+    void should_load_all_rows_for_table_from_yaml_file() throws Exception {
         // given
         input = FileLoader.load("one-table.yml");
 
         // when
-        YamlDataSet yamlDataSet = new YamlDataSet(input);
+        final YamlDataSet yamlDataSet = new YamlDataSet(input);
 
         // then
         TableAssert.assertThat(yamlDataSet.getTable("useraccount")).hasRows(2);
     }
 
     @Test
-    public void should_load_all_rows_with_content_for_table_from_yaml_file() throws Exception {
+    void should_load_all_rows_with_content_for_table_from_yaml_file() throws Exception {
         // given
         input = FileLoader.load("one-table.yml");
 
         // when
-        YamlDataSet yamlDataSet = new YamlDataSet(input);
+        final YamlDataSet yamlDataSet = new YamlDataSet(input);
 
         // then
         TableAssert.assertThat(yamlDataSet.getTable("useraccount"))
-            .hasRow("id: 1", "firstname: John", "lastname: Smith", "username: doovde", "password: password")
-            .hasRow("id: 2", "firstname: Clark", "lastname: Kent", "username: superman", "password: kryptonite",
-                "email: arquillian@jboss.org");
+                .hasRow("id: 1", "firstname: John", "lastname: Smith", "username: doovde", "password: password")
+                .hasRow("id: 2", "firstname: Clark", "lastname: Kent", "username: superman", "password: kryptonite",
+                        "email: arquillian@jboss.org");
     }
 
     @Test
-    public void should_load_two_tables_from_yaml_file() throws Exception {
+    void should_load_two_tables_from_yaml_file() throws Exception {
         // given
         input = FileLoader.load("tables.yml");
 
         // when
-        YamlDataSet yamlDataSet = new YamlDataSet(input);
+        final YamlDataSet yamlDataSet = new YamlDataSet(input);
 
         // then
         DataSetAssert.assertThat(yamlDataSet).hasTables("useraccount", "testtable");

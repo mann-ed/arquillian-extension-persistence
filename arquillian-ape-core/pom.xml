@@ -1,52 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <parent>
-    <groupId>org.arquillian.ape</groupId>
-    <artifactId>arquillian-ape-parent</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
-  </parent>
+    <parent>
+        <groupId>org.arquillian.ape</groupId>
+        <artifactId>arquillian-ape-parent</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
+    </parent>
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>arquillian-ape-core</artifactId>
-  <packaging>jar</packaging>
+    <artifactId>arquillian-ape-core</artifactId>
+    <packaging>jar</packaging>
 
-  <name>Arquillian Ape Core</name>
+    <name>Arquillian Ape Core</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.jboss.arquillian.core</groupId>
-      <artifactId>arquillian-core-spi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.arquillian.ape</groupId>
-      <artifactId>arquillian-ape-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.arquillian.test</groupId>
-      <artifactId>arquillian-test-spi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.arquillian.ape</groupId>
-      <artifactId>arquillian-ape-spi</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.arquillian.core</groupId>
+            <artifactId>arquillian-core-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.arquillian.ape</groupId>
+            <artifactId>arquillian-ape-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.test</groupId>
+            <artifactId>arquillian-test-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.arquillian.ape</groupId>
+            <artifactId>arquillian-ape-spi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>

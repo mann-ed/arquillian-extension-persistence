@@ -1,24 +1,25 @@
 package org.arquillian.ape.rest.postman;
 
-import io.restassured.builder.RequestSpecBuilder;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+
 import org.arquillian.ape.rest.RestPopulator;
 import org.arquillian.cube.DockerUrl;
 import org.arquillian.cube.HealthCheck;
 import org.arquillian.cube.HostIp;
 import org.arquillian.cube.HostPort;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
+import io.restassured.builder.RequestSpecBuilder;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 @HealthCheck("/message")
-@Ignore("FIXME this fails on travis-ci due to docker/cube not able to start/connect to the container: http://bit.ly/2r82st1")
-public class PostmanTest {
+@Disabled("FIXME this fails on travis-ci due to docker/cube not able to start/connect to the container: http://bit.ly/2r82st1")
+class PostmanTest {
 
     @ArquillianResource
     @DockerUrl(containerName = "messenger", exposedPort = 8080)
@@ -35,17 +36,17 @@ public class PostmanTest {
     RestPopulator populator;
 
     @Test
-    public void should_get_messages() {
+    void should_get_messages() {
 
         populator.forServer(hostIp, port)
-            .usingDataSets("/message.json")
-            .execute();
+                .usingDataSets("/message.json")
+                .execute();
 
         given()
-            .spec(requestSpecBuilder.build())
-            .when()
-            .get("/message")
-            .then()
-            .assertThat().body(is("Hello From Populator Test"));
+                .spec(requestSpecBuilder.build())
+                .when()
+                .get("/message")
+                .then()
+                .assertThat().body(is("Hello From Populator Test"));
     }
 }

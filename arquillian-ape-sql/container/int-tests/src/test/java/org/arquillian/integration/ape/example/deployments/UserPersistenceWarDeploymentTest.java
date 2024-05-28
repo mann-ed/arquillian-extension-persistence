@@ -21,13 +21,13 @@ import org.arquillian.integration.ape.example.NonDeployableUserPersistenceTest;
 import org.arquillian.integration.ape.example.UserAccount;
 import org.arquillian.integration.ape.util.Query;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class UserPersistenceWarDeploymentTest extends NonDeployableUserPersistenceTest {
 
     @Deployment

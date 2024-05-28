@@ -17,11 +17,12 @@
  */
 package org.arquillian.ape.rdbms.dbunit.configuration;
 
-import java.io.IOException;
-import org.arquillian.ape.rdbms.core.dbunit.data.descriptor.Format;
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.IOException;
+
+import org.arquillian.ape.rdbms.core.dbunit.data.descriptor.Format;
+import org.junit.jupiter.api.Test;
 
 public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
@@ -29,7 +30,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_batched_statement_flag_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.isBatchedStatements()).isTrue();
@@ -37,7 +38,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_case_sensitive_table_names_flag_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.isCaseSensitiveTableNames()).isTrue();
@@ -45,7 +46,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_qualified_table_names_flag_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.isQualifiedTableNames()).isTrue();
@@ -53,7 +54,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_data_type_warning_flag_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.isDatatypeWarning()).isFalse();
@@ -61,7 +62,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_skip_oracle_recycle_bin_tables_flag_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.isSkipOracleRecycleBinTables()).isTrue();
@@ -69,7 +70,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_allow_empty_fields_flag_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.isAllowEmptyFields()).isTrue();
@@ -77,7 +78,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_escape_pattern_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getEscapePattern()).isEqualTo("?");
@@ -85,7 +86,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_table_types_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getTableType()).contains("TABLE", "VIEW");
@@ -93,62 +94,62 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_datatype_factory_implementation_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getDatatypeFactory()).isInstanceOf(
-            org.dbunit.ext.hsqldb.HsqldbDataTypeFactory.class);
+                org.dbunit.ext.hsqldb.HsqldbDataTypeFactory.class);
     }
 
     @Test
     public void should_extract_statement_factory_implementation_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getStatementFactory()).isInstanceOf(
-            org.dbunit.database.statement.StatementFactory.class);
+                org.dbunit.database.statement.StatementFactory.class);
     }
 
     @Test
     public void should_extract_result_set_table_factory_factory_implementation_from_external_property_file()
-        throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+            throws Exception {
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getResultSetTableFactory()).isInstanceOf(
-            org.dbunit.database.ForwardOnlyResultSetTableFactory.class);
+                org.dbunit.database.ForwardOnlyResultSetTableFactory.class);
     }
 
     @Test
     public void should_extract_primary_key_filter_implementation_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getPrimaryKeyFilter()).isInstanceOf(
-            org.dbunit.dataset.filter.DefaultColumnFilter.class);
+                org.dbunit.dataset.filter.DefaultColumnFilter.class);
     }
 
     @Test
     public void should_extract_identity_column_filter_implementation_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getIdentityColumnFilter()).isInstanceOf(
-            org.dbunit.dataset.filter.DefaultColumnFilter.class);
+                org.dbunit.dataset.filter.DefaultColumnFilter.class);
     }
 
     @Test
     public void should_extract_metadata_handler_implementation_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getMetadataHandler()).isInstanceOf(
-            org.dbunit.ext.netezza.NetezzaMetadataHandler.class);
+                org.dbunit.ext.netezza.NetezzaMetadataHandler.class);
     }
 
     @Test
     public void should_extract_batch_size_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getBatchSize()).isEqualTo(200);
@@ -156,7 +157,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_fetch_size_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getFetchSize()).isEqualTo(300);
@@ -164,7 +165,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_identity_insert_flag_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.isUseIdentityInsert()).isTrue();
@@ -172,7 +173,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_default_data_set_format_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getDefaultDataSetFormat()).isEqualTo(Format.EXCEL);
@@ -180,7 +181,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_default_data_set_location_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getDefaultDataSetLocation()).isEqualTo("ds");
@@ -188,7 +189,7 @@ public abstract class DBUnitConfigurationImporterFromFileAbstractTestCase {
 
     @Test
     public void should_extract_schema_name_from_external_property_file() throws Exception {
-        DBUnitConfiguration dbunitConfiguration = loadFromFile();
+        final DBUnitConfiguration dbunitConfiguration = loadFromFile();
 
         // then
         assertThat(dbunitConfiguration.getSchema()).isEqualTo("ape");

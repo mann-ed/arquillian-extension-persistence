@@ -19,6 +19,7 @@ package org.arquillian.integration.ape.testextension.deployment;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import org.arquillian.ape.rdbms.core.data.descriptor.ResourceDescriptor;
 import org.arquillian.ape.rdbms.core.deployment.ResourceAppender;
 import org.arquillian.ape.rdbms.core.metadata.DbUnitMetadataExtractor;

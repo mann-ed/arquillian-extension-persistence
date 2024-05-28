@@ -17,17 +17,19 @@
  */
 package org.arquillian.ape.rdbms;
 
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import javax.persistence.Cache;
-import javax.persistence.EntityManager;
+
 import org.arquillian.ape.api.TestExecutionPhase;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import jakarta.persistence.Cache;
+import jakarta.persistence.EntityManager;
 
 /**
  * Indicates that test want evict JPA second level cache between test method
@@ -39,9 +41,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * evict all entities from cache. Default values can be changed in Arquillian
  * descriptor.
  * <p>
- * Eviction can be defined on test class or test method level, where latter takes precedence if both are present.
+ * Eviction can be defined on test class or test method level, where latter
+ * takes precedence if both are present.
  * <p>
  * Example configuration:
+ *
  * <pre>
  * <code>
  * &lt;extension qualifier="persistence-jpacacheeviction"&gt;
@@ -53,6 +57,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * </pre>
  * <p>
  * Example test:
+ *
  * <pre>
  * <code>
  * &#064;RunWith(Arquillian.class)
@@ -67,7 +72,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Inherited
 @Documented
-@Target({TYPE, METHOD})
+@Target({
+        TYPE, METHOD
+})
 @Retention(RUNTIME)
 public @interface JpaCacheEviction {
 
@@ -77,8 +84,10 @@ public @interface JpaCacheEviction {
     TestExecutionPhase phase() default TestExecutionPhase.DEFAULT;
 
     /**
-     * Defines JNDI names of entity managers which second level caches should be evicted
-     * during test execution. Both full JNDI name as well as short form can be provided.
+     * Defines JNDI names of entity managers which second level caches should be
+     * evicted
+     * during test execution. Both full JNDI name as well as short form can be
+     * provided.
      * In case of latter it will be prefixed with java:comp/env/.
      */
     String[] entityManager() default "";
@@ -95,10 +104,10 @@ public @interface JpaCacheEviction {
      */
     class DefaultJpaCacheEvictionStrategy implements JpaCacheEvictionStrategy {
         /**
-         * @see JpaCacheEvictionStrategy#evictCache(javax.persistence.EntityManager)
+         * @see JpaCacheEvictionStrategy#evictCache(jakarta.persistence.EntityManager)
          */
         @Override
-        public void evictCache(EntityManager em) {
+        public void evictCache(final EntityManager em) {
             throw new UnsupportedOperationException();
         }
     }

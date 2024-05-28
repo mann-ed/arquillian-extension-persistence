@@ -17,22 +17,22 @@
  */
 package org.arquillian.ape.rdbms.dbunit.data.naming;
 
-import org.arquillian.ape.rdbms.core.dbunit.data.descriptor.Format;
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DataSetFileNamingStrategyTest {
+import org.arquillian.ape.rdbms.core.dbunit.data.descriptor.Format;
+import org.junit.jupiter.api.Test;
+
+class DataSetFileNamingStrategyTest {
 
     @Test
-    public void should_produce_default_file_name_of_data_set_for_test_using_full_class_name_and_method_name()
-        throws Exception {
+    void should_produce_default_file_name_of_data_set_for_test_using_full_class_name_and_method_name()
+            throws Exception {
         // given
-        DataSetFileNamingStrategy defaultFileNamingStrategy = new DataSetFileNamingStrategy(Format.XML);
+        final DataSetFileNamingStrategy defaultFileNamingStrategy = new DataSetFileNamingStrategy(Format.XML);
 
         // when
-        String fileName =
-            defaultFileNamingStrategy.createFileName(DummyClass.class, DummyClass.class.getMethod("shouldPass"));
+        final String fileName = defaultFileNamingStrategy.createFileName(DummyClass.class,
+                DummyClass.class.getMethod("shouldPass"));
 
         // then
         assertThat(fileName).isEqualTo("org.arquillian.ape.rdbms.dbunit.data.naming.DummyClass#shouldPass.xml");

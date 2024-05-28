@@ -1,27 +1,28 @@
 package org.arquillian.integration.ape.test.boundary;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import static org.arquillian.ape.rdbms.BuiltInCleanupStrategy.USED_TABLES_ONLY;
+
 import org.arquillian.ape.api.Cleanup;
+import org.arquillian.ape.api.TestExecutionPhase;
 import org.arquillian.ape.api.UsingDataSet;
 import org.arquillian.ape.rdbms.CleanupStrategy;
-import org.arquillian.ape.api.TestExecutionPhase;
 import org.arquillian.integration.ape.example.UserAccount;
 import org.arquillian.integration.ape.util.Query;
 import org.arquillian.integration.ape.util.UserPersistenceAssertion;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.arquillian.ape.rdbms.BuiltInCleanupStrategy.USED_TABLES_ONLY;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 @Cleanup(phase = TestExecutionPhase.BEFORE)
 public class EmptyTablesYamlDataSetTest {
 

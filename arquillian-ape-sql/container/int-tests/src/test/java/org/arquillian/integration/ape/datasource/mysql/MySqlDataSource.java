@@ -18,14 +18,11 @@
 package org.arquillian.integration.ape.datasource.mysql;
 
 import javax.annotation.sql.DataSourceDefinition;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
 
-@DataSourceDefinition(name = "java:app/datasources/mysql_ds",
-    className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource",
-    url = "jdbc:mysql://mysql:3306/ape",
-    user = "ape",
-    password = "letmein")
+import jakarta.ejb.Singleton;
+import jakarta.ejb.Startup;
+
+@DataSourceDefinition(name = "java:app/datasources/mysql_ds", className = "com.mysql.jdbc.jdbc2.optional.MysqlDataSource", url = "jdbc:mysql://mysql:3306/ape", user = "ape", password = "letmein")
 @Singleton
 @Startup
 public class MySqlDataSource {

@@ -22,17 +22,18 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author Bartosz Majsak
@@ -76,20 +77,20 @@ public class UserAccount implements Serializable {
     private Date openDate;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Address> addresses = new HashSet<Address>();
+    private Set<Address> addresses = new HashSet<>();
 
     protected UserAccount() {
         // To satisfy JPA
     }
 
-    public UserAccount(String firstName, String lastName, String username, String password) {
+    public UserAccount(final String firstName, final String lastName, final String username, final String password) {
         this.firstname = firstName;
         this.lastname = lastName;
         this.username = username;
         this.password = password;
     }
 
-    public void addAddress(Address address) {
+    public void addAddress(final Address address) {
         this.addresses.add(address);
     }
 
@@ -99,7 +100,7 @@ public class UserAccount implements Serializable {
         return id;
     }
 
-    void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -107,7 +108,7 @@ public class UserAccount implements Serializable {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -115,7 +116,7 @@ public class UserAccount implements Serializable {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -123,7 +124,7 @@ public class UserAccount implements Serializable {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
+    public void setFirstname(final String firstname) {
         this.firstname = firstname;
     }
 
@@ -131,7 +132,7 @@ public class UserAccount implements Serializable {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
+    public void setLastname(final String lastname) {
         this.lastname = lastname;
     }
 
@@ -139,7 +140,7 @@ public class UserAccount implements Serializable {
         return Collections.unmodifiableSet(addresses);
     }
 
-    void setAddresses(Set<Address> addresses) {
+    void setAddresses(final Set<Address> addresses) {
         this.addresses = addresses;
     }
 
@@ -147,7 +148,7 @@ public class UserAccount implements Serializable {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public void setNickname(final String nickname) {
         this.nickname = nickname;
     }
 
@@ -155,7 +156,7 @@ public class UserAccount implements Serializable {
         return (Date) openDate.clone();
     }
 
-    public void setOpenDate(Date openDate) {
+    public void setOpenDate(final Date openDate) {
         this.openDate = (Date) openDate.clone();
     }
 }

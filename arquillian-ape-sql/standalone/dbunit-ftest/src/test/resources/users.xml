@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<dataset>
+  <USERS id="08004327-3f6c-4335-9738-0b2bf885cc43" first_name="Bob" last_name="Doe" age="18" />
+  <USERS id="1a0e342a-02cc-43bf-9643-f9ea312dd349" first_name="Alice" last_name="Foo" age="23" />
+  <USERS id="36917869-c9df-4e7a-a39d-908debf659bc" first_name="Charlie" last_name="Brown" age="42" />
+</dataset>

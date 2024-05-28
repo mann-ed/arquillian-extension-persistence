@@ -26,10 +26,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
 import org.jboss.arquillian.test.spi.TestClass;
 
 /**
@@ -43,7 +43,7 @@ public class AnnotationInspector<T extends Annotation> {
 
     private final Class<T> annotationClass;
 
-    public AnnotationInspector(TestClass testClass, Class<T> annotationClass) {
+    public AnnotationInspector(final TestClass testClass, final Class<T> annotationClass) {
         this.testClass = testClass;
         this.annotationClass = annotationClass;
         this.annotatedMethods = fetch(annotationClass);
@@ -55,13 +55,13 @@ public class AnnotationInspector<T extends Annotation> {
         final Collection<List<T>> values = annotatedMethods.values();
         values.stream().forEach(all::addAll);
 
-        Collection<T> annotationsOnClassLevel = getAnnotationsOnClassLevel();
+        final Collection<T> annotationsOnClassLevel = getAnnotationsOnClassLevel();
         all.addAll(annotationsOnClassLevel);
 
         return all;
     }
 
-    public boolean isDefinedOn(Method method) {
+    public boolean isDefinedOn(final Method method) {
         return fetchFrom(method) != null;
     }
 
@@ -69,7 +69,7 @@ public class AnnotationInspector<T extends Annotation> {
         return !annotatedMethods.isEmpty();
     }
 
-    public T fetchFrom(Method method) {
+    public T fetchFrom(final Method method) {
         final List<T> allAnnotations = annotatedMethods.get(method);
 
         if (allAnnotations == null || allAnnotations.size() == 0) {
@@ -80,11 +80,11 @@ public class AnnotationInspector<T extends Annotation> {
 
     }
 
-    public Collection<T> fetchAllFrom(Method method) {
+    public Collection<T> fetchAllFrom(final Method method) {
         return annotatedMethods.get(method);
     }
 
-    public Collection<T> fetchAllFrom(Method method, Predicate<T> predicate) {
+    public Collection<T> fetchAllFrom(final Method method, final Predicate<T> predicate) {
         final List<T> annotations = annotatedMethods.get(method);
 
         if (annotations != null) {
@@ -106,19 +106,20 @@ public class AnnotationInspector<T extends Annotation> {
         return Arrays.asList(testClass.getJavaClass().getAnnotationsByType(annotationClass));
     }
 
-    public Collection<T> getAnnotationsOnClassLevel(Predicate<T> predicate) {
+    public Collection<T> getAnnotationsOnClassLevel(final Predicate<T> predicate) {
         return Arrays.asList(testClass.getJavaClass().getAnnotationsByType(annotationClass)).stream()
-                                                .filter(predicate)
-                                                .collect(Collectors.toList());
+                .filter(predicate)
+                .collect(Collectors.toList());
     }
 
     /**
      * Fetches annotation for a given test class. If annotation is defined on method
-     * level it's returned as a result. Otherwise class level annotation is returned if present.
+     * level it's returned as a result. Otherwise class level annotation is returned
+     * if present.
      *
      * @return T annotation or null if not found.
      */
-    public T fetchUsingFirst(Method testMethod) {
+    public T fetchUsingFirst(final Method testMethod) {
         T usedAnnotation = getAnnotationOnClassLevel();
         if (isDefinedOn(testMethod)) {
             usedAnnotation = fetchFrom(testMethod);
@@ -127,7 +128,7 @@ public class AnnotationInspector<T extends Annotation> {
         return usedAnnotation;
     }
 
-    public Collection<T> fetchUsingFirst(Method testMethod, Predicate<T> predicate) {
+    public Collection<T> fetchUsingFirst(final Method testMethod, final Predicate<T> predicate) {
         Collection<T> usedAnnotations = getAnnotationsOnClassLevel(predicate);
 
         if (isDefinedOn(testMethod)) {
@@ -140,19 +141,16 @@ public class AnnotationInspector<T extends Annotation> {
 
     // Private
 
-    private Map<Method, List<T>> fetch(Class<T> annotation) {
+    private Map<Method, List<T>> fetch(final Class<T> annotation) {
         final Map<Method, List<T>> map = new HashMap<>();
 
-        for (Method testMethod : testClass.getJavaClass().getMethods()) {
-            final T[] annotationsByType = testMethod.getAnnotationsByType(annotation);
-            if (annotationsByType.length > 0) {
-                map.putIfAbsent(testMethod, new ArrayList<>());
-                map.get(testMethod).addAll(Arrays.asList(annotationsByType));
-            }
+        for (final Method testMethod : testClass.getMethods(annotation)) {
+
+            map.putIfAbsent(testMethod, new ArrayList<>());
+            map.get(testMethod).add(testMethod.getAnnotation(annotation));
         }
 
         return map;
     }
 
 }
-

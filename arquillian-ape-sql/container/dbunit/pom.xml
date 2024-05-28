@@ -1,201 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
-  <parent>
-    <groupId>org.arquillian.ape</groupId>
-    <artifactId>arquillian-ape-sql-container-parent</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
-  </parent>
-
-  <!-- Model Version -->
-  <modelVersion>4.0.0</modelVersion>
-
-  <!-- Artifact Configuration -->
-  <artifactId>arquillian-ape-sql-container-dbunit</artifactId>
-  <name>Arquillian Ape SQL Container DBUnit</name>
-  <description>Extension for controlling data sources</description>
-
-  <properties>
-    <version.poi>3.14</version.poi>
-    <version.cdi>1.0-SP1</version.cdi>
-    <version.jta>1.1</version.jta>
-    <version.slf4j>1.7.20</version.slf4j>
-    <version.junit_params>1.0.4</version.junit_params>
-  </properties>
-
-  <dependencies>
-
-    <dependency>
-      <groupId>org.arquillian.ape</groupId>
-      <artifactId>arquillian-ape-sql-container-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.arquillian.ape</groupId>
-      <artifactId>arquillian-ape-sql-core-dbunit</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.arquillian.ape</groupId>
-      <artifactId>arquillian-ape-spi</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.arquillian.ape</groupId>
-      <artifactId>arquillian-ape-sql-container-core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.extension</groupId>
-      <artifactId>arquillian-transaction-spi</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.dbunit</groupId>
-      <artifactId>dbunit</artifactId>
-      <version>${version.dbunit}</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${version.slf4j}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi</artifactId>
-      <version>${version.poi}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>log4j</artifactId>
-          <groupId>log4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-logging</artifactId>
-          <groupId>commons-logging</groupId>
-        </exclusion>
-      </exclusions>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.transaction</groupId>
-      <artifactId>jta</artifactId>
-      <version>${version.jta}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <!-- Arquillian dependencies -->
-    <dependency>
-      <groupId>org.jboss.arquillian.core</groupId>
-      <artifactId>arquillian-core-impl-base</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.test</groupId>
-      <artifactId>arquillian-test-impl-base</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.core</groupId>
-      <artifactId>arquillian-core-spi</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.container</groupId>
-      <artifactId>arquillian-container-spi</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.container</groupId>
-      <artifactId>arquillian-container-test-impl-base</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.test</groupId>
-      <artifactId>arquillian-test-spi</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.config</groupId>
-      <artifactId>arquillian-config-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.shrinkwrap</groupId>
-      <artifactId>shrinkwrap-impl-base</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-      <artifactId>shrinkwrap-descriptors-api-base</artifactId>
-    </dependency>
-
-    <!-- Test dependencies -->
-    <dependency>
-      <groupId>org.jboss.arquillian.test</groupId>
-      <artifactId>arquillian-test-impl-base</artifactId>
-      <scope>test</scope>
-      <classifier>tests</classifier>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.core</groupId>
-      <artifactId>arquillian-core-impl-base</artifactId>
-      <scope>test</scope>
-      <classifier>tests</classifier>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>pl.pragmatists</groupId>
-      <artifactId>JUnitParams</artifactId>
-      <version>${version.junit_params}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <perCoreThreadCount>false</perCoreThreadCount>
-          <parallel>classesAndMethods</parallel>
-          <threadCount>8</threadCount>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.arquillian.ape</groupId>
+        <artifactId>arquillian-ape-sql-container-parent</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
+    </parent>
+    <!-- Model Version -->
+    <modelVersion>4.0.0</modelVersion>
+    <!-- Artifact Configuration -->
+    <artifactId>arquillian-ape-sql-container-dbunit</artifactId>
+    <name>Arquillian Ape SQL Container DBUnit</name>
+    <description>Extension for controlling data sources</description>
+    <properties>
+        <version.poi>3.14</version.poi>
+        <version.cdi>1.0-SP1</version.cdi>
+        <version.jta>2.0.1</version.jta>
+        <version.slf4j>1.7.20</version.slf4j>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.arquillian.ape</groupId>
+            <artifactId>arquillian-ape-sql-container-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.arquillian.ape</groupId>
+            <artifactId>arquillian-ape-spi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.arquillian.ape</groupId>
+            <artifactId>arquillian-ape-sql-container-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-transaction-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>${version.dbunit}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${version.poi}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.transaction</groupId>
+            <artifactId>jakarta.transaction-api</artifactId>
+            <version>${version.jta}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Arquillian dependencies -->
+        <dependency>
+            <groupId>org.jboss.arquillian.core</groupId>
+            <artifactId>arquillian-core-impl-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.test</groupId>
+            <artifactId>arquillian-test-impl-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.core</groupId>
+            <artifactId>arquillian-core-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-test-impl-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.test</groupId>
+            <artifactId>arquillian-test-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.config</groupId>
+            <artifactId>arquillian-config-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap</groupId>
+            <artifactId>shrinkwrap-impl-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+            <artifactId>shrinkwrap-descriptors-api-base</artifactId>
+        </dependency>
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.jboss.arquillian.test</groupId>
+            <artifactId>arquillian-test-impl-base</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.core</groupId>
+            <artifactId>arquillian-core-impl-base</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <perCoreThreadCount>false</perCoreThreadCount>
+                    <parallel>classesAndMethods</parallel>
+                    <threadCount>8</threadCount>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

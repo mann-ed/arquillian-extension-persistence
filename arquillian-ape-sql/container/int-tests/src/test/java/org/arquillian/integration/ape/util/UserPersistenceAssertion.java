@@ -1,10 +1,12 @@
 package org.arquillian.integration.ape.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
-import javax.persistence.EntityManager;
+
 import org.arquillian.integration.ape.example.UserAccount;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.persistence.EntityManager;
 
 public class UserPersistenceAssertion {
 

@@ -17,33 +17,35 @@
  */
 package org.arquillian.integration.ape.test.cleanup;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 import org.arquillian.ape.api.Cleanup;
+import org.arquillian.ape.api.TestExecutionPhase;
 import org.arquillian.ape.rdbms.BuiltInCleanupStrategy;
 import org.arquillian.ape.rdbms.CleanupStrategy;
 import org.arquillian.ape.rdbms.CreateSchema;
-import org.arquillian.ape.api.TestExecutionPhase;
 import org.arquillian.integration.ape.example.UserAccount;
 import org.arquillian.integration.ape.util.Query;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 /**
  * All tests are wrapped in transaction.
  *
  * @author <a href="mailto:bartosz.majsak@gmail.com">Bartosz Majsak</a>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 @CreateSchema("schema/create.sql")
 public class NoDataSeededCleanupStrategiesTest {
 

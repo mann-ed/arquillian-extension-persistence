@@ -25,13 +25,13 @@
       <artifactId>arquillian-ape-nosql-core</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
+            <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+  </dependency>
     <dependency>
       <groupId>org.arquillian.ape</groupId>
-      <artifactId>arquillian-ape-junit-rule</artifactId>
+      <artifactId>arquillian-ape-junit-extension</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>

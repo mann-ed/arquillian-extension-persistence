@@ -17,21 +17,21 @@
  */
 package org.arquillian.integration.ape.test.seeding;
 
+import org.arquillian.ape.api.TestExecutionPhase;
 import org.arquillian.ape.rdbms.ApplyScriptBefore;
 import org.arquillian.ape.rdbms.ShouldMatchDataSet;
-import org.arquillian.ape.api.TestExecutionPhase;
 import org.arquillian.integration.ape.example.UserAccount;
 import org.arquillian.integration.ape.testextension.event.annotation.ExecuteScriptsShouldBeTriggered;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class SeedingDatabaseByApplyingCustomScriptTest {
 
     @Deployment

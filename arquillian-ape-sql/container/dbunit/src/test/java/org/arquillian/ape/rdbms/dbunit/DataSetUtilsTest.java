@@ -17,41 +17,41 @@
  */
 package org.arquillian.ape.rdbms.dbunit;
 
-import java.util.List;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import net.jcip.annotations.NotThreadSafe;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static junitparams.JUnitParamsRunner.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@NotThreadSafe
-@RunWith(JUnitParamsRunner.class)
-public class DataSetUtilsTest {
+import java.util.List;
+import java.util.stream.Stream;
 
-    @Test
-    @Parameters(method = "columns")
-    public void should_extract_non_existing_columns_defined_in_second_list(List<String> expectedColumns,
-        List<String> actualColumns, List<String> nonExistingColums) throws Exception {
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import net.jcip.annotations.NotThreadSafe;
+
+@NotThreadSafe
+class DataSetUtilsTest {
+
+    @ParameterizedTest
+    @MethodSource("columns")
+    void should_extract_non_existing_columns_defined_in_second_list(final List<String> expectedColumns,
+            final List<String> actualColumns, final List<String> nonExistingColums) throws Exception {
         // when
-        List<String> actualNonExistingColumns = DataSetUtils.extractNonExistingColumns(expectedColumns, actualColumns);
+        final List<String> actualNonExistingColumns = DataSetUtils.extractNonExistingColumns(expectedColumns,
+                actualColumns);
 
         // then
         assertThat(actualNonExistingColumns).isEqualTo(nonExistingColums);
     }
 
-    @SuppressWarnings("unused")
-    private Object[] columns() {
-        return $(//   expected    ,   actual             , non existing in actual
-            $(asList("id", "name"), asList("name", "password"), singletonList("id")),
-            $(asList("id", "username", "password"), asList("id", "username", "password"), emptyList()),
-            $(emptyList(), asList("id", "name"), emptyList()),
-            $(emptyList(), emptyList(), emptyList())
-        );
+    private static Stream<Arguments> columns() {
+        return Stream.of(
+                // expected , actual , non existing in actual
+                Arguments.of(asList("id", "name"), asList("name", "password"), singletonList("id")),
+                Arguments.of(asList("id", "username", "password"), asList("id", "username", "password"), emptyList()),
+                Arguments.of(emptyList(), asList("id", "name"), emptyList()),
+                Arguments.of(emptyList(), emptyList(), emptyList()));
     }
 }

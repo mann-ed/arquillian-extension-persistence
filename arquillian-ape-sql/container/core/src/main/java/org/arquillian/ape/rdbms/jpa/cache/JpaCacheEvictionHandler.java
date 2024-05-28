@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import javax.naming.Context;
 import javax.naming.NamingException;
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import org.arquillian.ape.rdbms.JpaCacheEviction;
 import org.arquillian.ape.rdbms.JpaCacheEvictionStrategy;
 import org.arquillian.ape.api.TestExecutionPhase;

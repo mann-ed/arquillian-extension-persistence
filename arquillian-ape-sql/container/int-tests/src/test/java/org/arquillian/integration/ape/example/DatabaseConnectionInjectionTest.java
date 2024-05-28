@@ -17,29 +17,30 @@
  */
 package org.arquillian.integration.ape.example;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.arquillian.ape.rdbms.PersistenceTest;
 import org.arquillian.integration.ape.util.Query;
 import org.dbunit.database.DatabaseConnection;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author <a href="mailto:bartosz.majsak@gmail.com">Bartosz Majsak</a>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 @PersistenceTest
 public class DatabaseConnectionInjectionTest {
 
-    // Test needs to be "persistence-extension-aware" in order to get this reference.
+    // Test needs to be "persistence-extension-aware" in order to get this
+    // reference.
     // This can be achieved using any of APE annotations such as
     // @PersistenceTest, @UsingDataSet, @ShouldMatchDataSet etc.
     @ArquillianResource
@@ -48,16 +49,16 @@ public class DatabaseConnectionInjectionTest {
     @Deployment
     public static Archive<?> createDeploymentPackage() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addPackage(UserAccount.class.getPackage())
-            .addClass(Query.class)
-            // required for remote containers in order to run tests with FEST-Asserts
-            .addPackages(true, "org.assertj.core")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
+                .addPackage(UserAccount.class.getPackage())
+                .addClass(Query.class)
+                // required for remote containers in order to run tests with FEST-Asserts
+                .addPackages(true, "org.assertj.core")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
     }
 
     @Test
-    public void should_inject_dbunit_database_connection() throws Exception {
+    void should_inject_dbunit_database_connection() throws Exception {
         assertThat(databaseConnection).isNotNull();
     }
 }

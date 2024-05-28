@@ -13,10 +13,10 @@ import org.arquillian.ape.core.RunnerExpressionParser;
 
 public class JpaPersistenceLoader {
 
-    private static final String JDBC_URI_PROPERTY_NAME = "javax.persistence.jdbc.url";
-    private static final String USERNAME_PROPERTY_NAME = "javax.persistence.jdbc.user";
-    private static final String PASSWORD_PROPERTY_NAME = "javax.persistence.jdbc.password";
-    private static final String DRIVER_PROPERTY_NAME = "javax.persistence.jdbc.driver";
+    private static final String JDBC_URI_PROPERTY_NAME = "jakarta.persistence.jdbc.url";
+    private static final String USERNAME_PROPERTY_NAME = "jakarta.persistence.jdbc.user";
+    private static final String PASSWORD_PROPERTY_NAME = "jakarta.persistence.jdbc.password";
+    private static final String DRIVER_PROPERTY_NAME = "jakarta.persistence.jdbc.driver";
 
     public static DatabaseConfiguration load(String location) {
         final InputStream persistenceContent = Thread.currentThread().getContextClassLoader().getResourceAsStream(location);

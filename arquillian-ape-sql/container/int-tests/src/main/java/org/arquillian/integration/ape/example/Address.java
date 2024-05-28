@@ -17,14 +17,14 @@
  */
 package org.arquillian.integration.ape.example;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "address")
@@ -57,7 +57,7 @@ public class Address {
         // To satisfy JPA
     }
 
-    public Address(String streetName, Integer houseNumber, String city, Integer zipCode) {
+    public Address(final String streetName, final Integer houseNumber, final String city, final Integer zipCode) {
         this.streetName = streetName;
         this.houseNumber = houseNumber;
         this.city = city;
@@ -70,7 +70,7 @@ public class Address {
         return id;
     }
 
-    void setId(Long id) {
+    void setId(final Long id) {
         this.id = id;
     }
 
@@ -78,7 +78,7 @@ public class Address {
         return streetName;
     }
 
-    public void setStreetName(String streetName) {
+    public void setStreetName(final String streetName) {
         this.streetName = streetName;
     }
 
@@ -86,7 +86,7 @@ public class Address {
         return houseNumber;
     }
 
-    public void setHouseNumber(Integer houseNumber) {
+    public void setHouseNumber(final Integer houseNumber) {
         this.houseNumber = houseNumber;
     }
 
@@ -94,7 +94,7 @@ public class Address {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(final String city) {
         this.city = city;
     }
 
@@ -102,7 +102,7 @@ public class Address {
         return zipCode;
     }
 
-    public void setZipCode(Integer zipCode) {
+    public void setZipCode(final Integer zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -110,7 +110,7 @@ public class Address {
         return version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(final Long version) {
         this.version = version;
     }
 }

@@ -1,20 +1,24 @@
 package org.arquillian.ape.nosql.redis;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Map;
+
 import org.arquillian.ape.nosql.NoSqlPopulator;
 import org.arquillian.cube.HostIp;
 import org.arquillian.cube.HostPort;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import redis.clients.jedis.Jedis;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-@RunWith(Arquillian.class)
-public class RedisTest {
+@ExtendWith(ArquillianExtension.class)
+@Disabled("arquillian.cube needs to update to jakarta")
+class RedisTest {
 
     @ArquillianResource
     @Redis
@@ -27,22 +31,23 @@ public class RedisTest {
     private String hostIp;
 
     @Test
-    public void should_populate_redis() {
+    void should_populate_redis() {
         populator.forServer(hostIp, port)
-            .usingDataSet("books.json")
-            .execute();
+                .usingDataSet("books.json")
+                .execute();
 
-        Jedis jedis = new Jedis(hostIp, port);
-        final Map<String, String> fieldsOfTheHobbitBook = jedis.hgetAll("The Hobbit");
+        try (final Jedis jedis = new Jedis(hostIp, port)) {
+            final Map<String, String> fieldsOfTheHobbitBook = jedis.hgetAll("The Hobbit");
 
-        assertThat(fieldsOfTheHobbitBook)
-            .containsEntry("title", "The Hobbit")
-            .containsEntry("numberOfPages", "293");
+            assertThat(fieldsOfTheHobbitBook)
+                    .containsEntry("title", "The Hobbit")
+                    .containsEntry("numberOfPages", "293");
+        }
     }
 
-    @After
-    public void cleanDatabase() {
+    @AfterEach
+    void cleanDatabase() {
         populator.forServer(hostIp, port)
-            .clean();
+                .clean();
     }
 }

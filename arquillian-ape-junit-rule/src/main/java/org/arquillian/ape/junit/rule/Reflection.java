@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.arquillian.ape.spi.Populator;
 import org.arquillian.ape.spi.PopulatorService;
 
@@ -20,10 +21,10 @@ class Reflection {
     }
 
     public static boolean isClassWithAnnotation(final Class<?> source,
-        final Class<? extends Annotation> annotationClass) {
+            final Class<? extends Annotation> annotationClass) {
         return AccessController.doPrivileged((PrivilegedAction<Boolean>) () -> {
-            boolean annotationPresent = false;
-            Class<?> nextSource = source;
+            final boolean annotationPresent = false;
+            Class<?>      nextSource        = source;
             while (nextSource != Object.class) {
                 if (nextSource.isAnnotationPresent(annotationClass)) {
                     return true;
@@ -34,16 +35,17 @@ class Reflection {
         });
     }
 
-    public static final List<Field> getAllFieldsAnnotatedWith(Class<?> clazz, Class<? extends Annotation> annotation) {
+    public static final List<Field> getAllFieldsAnnotatedWith(final Class<?> clazz,
+            final Class<? extends Annotation> annotation) {
         final List<Field> fields = new ArrayList<>();
 
         Class<?> current = clazz;
         while (current.getSuperclass() != null) {
 
             fields.addAll(Arrays.stream(current.getDeclaredFields())
-                .peek(field -> field.setAccessible(true))
-                .filter(field -> field.isAnnotationPresent(annotation))
-                .collect(Collectors.toList()));
+                    .peek(field -> field.setAccessible(true))
+                    .filter(field -> field.isAnnotationPresent(annotation))
+                    .collect(Collectors.toList()));
 
             current = current.getSuperclass();
         }
@@ -51,20 +53,24 @@ class Reflection {
         return fields;
     }
 
-    public static final Optional<Field> getFieldAnnotedWith(List<Field> fields, Class<? extends Annotation> annotation) {
+    public static final Optional<Field> getFieldAnnotedWith(final List<Field> fields,
+            final Class<? extends Annotation> annotation) {
         return fields.stream()
-            .filter(field -> field.isAnnotationPresent(annotation))
-            .findFirst();
+                .filter(field -> field.isAnnotationPresent(annotation))
+                .findFirst();
     }
 
-    public static final void instantiateServiceAndPopulatorAndInject(Object testInstance, Field field, Class<? extends PopulatorService> serviceClass, Class<? extends Populator> populatorClass)
-        throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+    public static final void instantiateServiceAndPopulatorAndInject(final Object testInstance, final Field field,
+            final Class<? extends PopulatorService> serviceClass, final Class<? extends Populator> populatorClass)
+            throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 
         final Constructor<?> serviceConstructor = serviceClass.getDeclaredConstructor();
         serviceConstructor.setAccessible(true);
         final Object service = serviceConstructor.newInstance();
 
-        // Using getDeclaredConstructor(serviceClass) does not work. Services must contain only one constructor, if not even the Arquillian runner fails in case of APE
+        // Using getDeclaredConstructor(serviceClass) does not work. Services must
+        // contain only one constructor, if not even the Arquillian runner fails in case
+        // of APE
         final Constructor<?> populatorConstructor = populatorClass.getDeclaredConstructors()[0];
         populatorConstructor.setAccessible(true);
         final Populator populator = (Populator) populatorConstructor.newInstance(service);

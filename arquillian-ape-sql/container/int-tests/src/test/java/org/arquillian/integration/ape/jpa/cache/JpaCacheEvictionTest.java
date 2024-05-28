@@ -17,25 +17,27 @@
  */
 package org.arquillian.integration.ape.jpa.cache;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+
 import org.arquillian.ape.rdbms.JpaCacheEviction;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceUnit;
 
 /**
  * @author <a href="mailto:thradec@gmail.com">Tomas Hradec</a>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 @JpaCacheEviction(entityManager = "jpacacheeviction")
 public class JpaCacheEvictionTest {
 
